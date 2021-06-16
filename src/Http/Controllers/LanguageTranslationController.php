@@ -73,6 +73,9 @@ class LanguageTranslationController extends Controller
             $this->translation->addSingleTranslation($language, $request->get('group'), $request->get('key'), $request->get('value') ?: '');
         }
 
+        // Clean OPCache if enabled 
+        (is_array(opcache_get_status()) ? opcache_reset() : '');
+        
         return ['success' => true];
     }
 }
